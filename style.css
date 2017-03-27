@@ -1,6 +1,18 @@
+h1{
+	text-align: center;
+}
+
 form{
 	width: 45%;
 	margin: 10% auto;
 	position: relative;
 	border: 1px solid grey;
+	border-radius: 3px;
+	padding: 10px 20px;
+}
+
+
+input{
+	width: 55%;
+	float: right;
 }

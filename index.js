@@ -1,32 +1,34 @@
 var http = require('http');
-var arquivo = require('fs');
 var porta = 3000;
 
 
-// Arquivo
-arquivo.readFile ("the-page.html", function(erro, dados){
 
-	if(erro)
-		console.log(erro);
-	else{
+// Servidor
+var handle = function  (requisicao, resposta){
+	resposta.writeHead(200, {
+		'Access-Control-Allow-Origin': 'http://localhost',
+		'Access-Control-Allow-Credentials': 'true',
+	});
+	resposta.end('Servidor conectado');
+};
 
-		// Servidor
-		var handle = function  (requisicao, resposta){
-			resposta.writeHead(200, {
-				'Content-Type': 'text/html'
-			});
+var servidor = http.createServer(handle);
 
-			resposta.write(dados);
-			resposta.end();
-		};
 
-		var servidor = http.createServer(handle);
 
-		// Abrir servidor
-		servidor.listen(porta, function(){
-			console.log('Servidor ligado na porta ' + porta);
-		})
-	}
+// IO
+var io = require("socket.io")(http);
+io.on('connection', function(socket){
+	console.log('Houve uma conexão no nosso processo. O socket de conexão é ', socket);
+})
 
+
+
+// Abrir servidor
+servidor.listen(porta, function(){
+	console.log('Servidor ligado na porta ' + porta);
 });
+
+
+
 

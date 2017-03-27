@@ -1,21 +1,33 @@
 <html>
 	
 	<link rel="stylesheet" href="style.css" />
-	<body>
-		<form action="" id="theForm">
-			<p>Usuario: </p>
-			<p>Senha: </p>
+	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 
-			<button type="submit"></button>
+	<body>
+
+		<form action="">
+			<h1>
+				Twitter - Acesso ao Stream
+			</h1>
+			<p>Usuario: 
+				<input type="text" id="usuario" />
+			</p>
+			<p>Senha: 
+				<input type="text" id="senha" />
+			</p>
+
+			<button id="theButton" type="button">
+				Logar e começar processo
+			</button>
 		</form>
 		
 	</body>
 
 
-	<script>
-		var formulario = document.getElementById("theForm");
-		console.log(formulario);
-	</script>
+	<script src="processoFormulario.js"></script>
+
+
+
 	
 
 </html>
