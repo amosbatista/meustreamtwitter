@@ -17,9 +17,14 @@ var servidor = http.createServer(handle);
 
 
 // IO
-var io = require("socket.io")(http);
+var io = require("socket.io")(servidor);
+
 io.on('connection', function(socket){
 	console.log('Houve uma conexão no nosso processo. O socket de conexão é ', socket);
+
+	socket.on('disconnect', function(){
+		console.log('Usuário desconectado');		
+	})
 })
 
 
