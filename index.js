@@ -1,5 +1,9 @@
 var http = require('http');
 var porta = 3000;
+var url = {
+	api: 'https://api.twitter.com',
+	oauth: '/oauth/request_token'
+}
 
 
 
@@ -20,10 +24,33 @@ var servidor = http.createServer(handle);
 var io = require("socket.io")(servidor);
 
 io.on('connection', function(socket){
-	console.log('Houve uma conexão no nosso processo. O socket de conexão é ', socket);
+	console.log('Houve uma conexão no nosso processo.');
 
+	// Desconexão
 	socket.on('disconnect', function(){
 		console.log('Usuário desconectado');		
+	});
+
+
+	// Credencial
+	socket.on('credencial', function(credenciais){
+		var opcoes = {
+			hostname: url.api,
+			path: url.oauth,
+			method: 'POST',
+
+		};
+
+		var req = http.request(
+			opcoes,
+			function(resposta){
+				socket.emit('erroCredencial', resposta);
+			}
+		);
+
+		req.on('error', function(error){
+			console.log('Erro na autenticação', error);
+		})
 	})
 })
 
